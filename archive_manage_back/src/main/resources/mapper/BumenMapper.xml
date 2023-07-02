@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihuo.common.dao.BumenMapper">
+  <resultMap id="BaseResultMap" type="com.lihuo.common.po.Bumen">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mingcheng" jdbcType="VARCHAR" property="mingcheng" />
+    <result column="dengji" jdbcType="VARCHAR" property="dengji" />
+    <result column="shangji_id" jdbcType="INTEGER" property="shangji_id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mingcheng, dengji, shangji_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bumen
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bumen
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lihuo.common.po.Bumen">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bumen (mingcheng, dengji, shangji_id
+      )
+    values (#{mingcheng,jdbcType=VARCHAR}, #{dengji,jdbcType=VARCHAR}, #{shangji_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lihuo.common.po.Bumen">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bumen
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mingcheng != null">
+        mingcheng,
+      </if>
+      <if test="dengji != null">
+        dengji,
+      </if>
+      <if test="shangji_id != null">
+        shangji_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mingcheng != null">
+        #{mingcheng,jdbcType=VARCHAR},
+      </if>
+      <if test="dengji != null">
+        #{dengji,jdbcType=VARCHAR},
+      </if>
+      <if test="shangji_id != null">
+        #{shangji_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lihuo.common.po.Bumen">
+    update bumen
+    <set>
+      <if test="mingcheng != null">
+        mingcheng = #{mingcheng,jdbcType=VARCHAR},
+      </if>
+      <if test="dengji != null">
+        dengji = #{dengji,jdbcType=VARCHAR},
+      </if>
+      <if test="shangji_id != null">
+        shangji_id = #{shangji_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lihuo.common.po.Bumen">
+    update bumen
+    set mingcheng = #{mingcheng,jdbcType=VARCHAR},
+      dengji = #{dengji,jdbcType=VARCHAR},
+      shangji_id = #{shangji_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,56 @@
+<div class="layui-form-item">
+                    <label class="layui-form-label">手机</label>
+                    <div class="layui-input-inline">
+                        <input type="number" id="telephone" name="telephone" lay-verify="phone"
+                           placeholder="请输入手机号"
+                           autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-inline">
+                        <input type="number" id="phone" name="phone" lay-verify="number"
+                           placeholder="请输入电话"
+                           autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">传真</label>
+                    <div class="layui-input-inline">
+                        <input type="number" id="fax" name="fax" lay-verify="number"
+                           placeholder="请输入传真"
+                           autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="email" name="email" lay-verify="required"
+                           placeholder="请输入邮箱"
+                           autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地址</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="address" name="address" lay-verify="required"
+                           placeholder="请输入地址"
+                           autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">明信片</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="postal_code" name="postal_code" lay-verify="required"
+                           placeholder="请输入明信片"
+                           autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司简介</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="company_profile" name="company_profile" lay-verify="required"
+                           placeholder="请输入公司简介"
+                           autocomplete="off" class="layui-input">
+                    </div>
+                </div>

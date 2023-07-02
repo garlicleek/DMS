@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihuo.common.dao.QuanxianMapper">
+  <resultMap id="BaseResultMap" type="com.lihuo.common.po.Quanxian">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mingcheng" jdbcType="VARCHAR" property="mingcheng" />
+    <result column="jiekou" jdbcType="VARCHAR" property="jiekou" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mingcheng, jiekou
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from quanxian
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from quanxian
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lihuo.common.po.Quanxian">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into quanxian (mingcheng, jiekou)
+    values (#{mingcheng,jdbcType=VARCHAR}, #{jiekou,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lihuo.common.po.Quanxian">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into quanxian
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mingcheng != null">
+        mingcheng,
+      </if>
+      <if test="jiekou != null">
+        jiekou,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mingcheng != null">
+        #{mingcheng,jdbcType=VARCHAR},
+      </if>
+      <if test="jiekou != null">
+        #{jiekou,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lihuo.common.po.Quanxian">
+    update quanxian
+    <set>
+      <if test="mingcheng != null">
+        mingcheng = #{mingcheng,jdbcType=VARCHAR},
+      </if>
+      <if test="jiekou != null">
+        jiekou = #{jiekou,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lihuo.common.po.Quanxian">
+    update quanxian
+    set mingcheng = #{mingcheng,jdbcType=VARCHAR},
+      jiekou = #{jiekou,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

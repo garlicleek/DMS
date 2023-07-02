@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihuo.common.dao.ArchiveMapper">
+  <resultMap id="BaseResultMap" type="com.lihuo.common.po.Archive">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bianhao" jdbcType="VARCHAR" property="bianhao" />
+    <result column="mingcheng" jdbcType="VARCHAR" property="mingcheng" />
+    <result column="lujing" jdbcType="VARCHAR" property="lujing" />
+    <result column="leixing_id" jdbcType="INTEGER" property="leixing_id" />
+    <result column="laiyuan_id" jdbcType="INTEGER" property="laiyuan_id" />
+    <result column="miji_id" jdbcType="INTEGER" property="miji_id" />
+    <result column="zhuangtai" jdbcType="INTEGER" property="zhuangtai" />
+    <result column="danganjia" jdbcType="VARCHAR" property="danganjia" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, bianhao, mingcheng, lujing, leixing_id, laiyuan_id, miji_id, zhuangtai, danganjia
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from archive
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from archive
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lihuo.common.po.Archive">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into archive (bianhao, mingcheng, lujing, 
+      leixing_id, laiyuan_id, miji_id, 
+      zhuangtai, danganjia)
+    values (#{bianhao,jdbcType=VARCHAR}, #{mingcheng,jdbcType=VARCHAR}, #{lujing,jdbcType=VARCHAR}, 
+      #{leixing_id,jdbcType=INTEGER}, #{laiyuan_id,jdbcType=INTEGER}, #{miji_id,jdbcType=INTEGER}, 
+      #{zhuangtai,jdbcType=INTEGER}, #{danganjia,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lihuo.common.po.Archive">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into archive
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bianhao != null">
+        bianhao,
+      </if>
+      <if test="mingcheng != null">
+        mingcheng,
+      </if>
+      <if test="lujing != null">
+        lujing,
+      </if>
+      <if test="leixing_id != null">
+        leixing_id,
+      </if>
+      <if test="laiyuan_id != null">
+        laiyuan_id,
+      </if>
+      <if test="miji_id != null">
+        miji_id,
+      </if>
+      <if test="zhuangtai != null">
+        zhuangtai,
+      </if>
+      <if test="danganjia != null">
+        danganjia,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bianhao != null">
+        #{bianhao,jdbcType=VARCHAR},
+      </if>
+      <if test="mingcheng != null">
+        #{mingcheng,jdbcType=VARCHAR},
+      </if>
+      <if test="lujing != null">
+        #{lujing,jdbcType=VARCHAR},
+      </if>
+      <if test="leixing_id != null">
+        #{leixing_id,jdbcType=INTEGER},
+      </if>
+      <if test="laiyuan_id != null">
+        #{laiyuan_id,jdbcType=INTEGER},
+      </if>
+      <if test="miji_id != null">
+        #{miji_id,jdbcType=INTEGER},
+      </if>
+      <if test="zhuangtai != null">
+        #{zhuangtai,jdbcType=INTEGER},
+      </if>
+      <if test="danganjia != null">
+        #{danganjia,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lihuo.common.po.Archive">
+    update archive
+    <set>
+      <if test="bianhao != null">
+        bianhao = #{bianhao,jdbcType=VARCHAR},
+      </if>
+      <if test="mingcheng != null">
+        mingcheng = #{mingcheng,jdbcType=VARCHAR},
+      </if>
+      <if test="lujing != null">
+        lujing = #{lujing,jdbcType=VARCHAR},
+      </if>
+      <if test="leixing_id != null">
+        leixing_id = #{leixing_id,jdbcType=INTEGER},
+      </if>
+      <if test="laiyuan_id != null">
+        laiyuan_id = #{laiyuan_id,jdbcType=INTEGER},
+      </if>
+      <if test="miji_id != null">
+        miji_id = #{miji_id,jdbcType=INTEGER},
+      </if>
+      <if test="zhuangtai != null">
+        zhuangtai = #{zhuangtai,jdbcType=INTEGER},
+      </if>
+      <if test="danganjia != null">
+        danganjia = #{danganjia,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lihuo.common.po.Archive">
+    update archive
+    set bianhao = #{bianhao,jdbcType=VARCHAR},
+      mingcheng = #{mingcheng,jdbcType=VARCHAR},
+      lujing = #{lujing,jdbcType=VARCHAR},
+      leixing_id = #{leixing_id,jdbcType=INTEGER},
+      laiyuan_id = #{laiyuan_id,jdbcType=INTEGER},
+      miji_id = #{miji_id,jdbcType=INTEGER},
+      zhuangtai = #{zhuangtai,jdbcType=INTEGER},
+      danganjia = #{danganjia,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

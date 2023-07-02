@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="mybatis-generator/mybatisGeneratorinit.properties"/>
+    <!--    连接数据库jar包的路径-->
+    <classPathEntry
+            location="C:\JAVA_HOME\Repository\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar"/>
+    <context id="Mysql" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"></plugin>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接参数 -->
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc_driver}" connectionURL="${jdbc_url}" userId="${jdbc_user}"
+                        password="${jdbc_password}">
+            <property name="serverTimezone" value="Asia/Shanghai"/>
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.lihuo.common.po" targetProject="${java}">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="${resources}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成mapper的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lihuo.common.dao"
+                             targetProject="${java}">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- tableName：数据库中的表名或视图名；domainObjectName：生成的实体类的类名-->
+        <table tableName="archive_jieyue"
+               domainObjectName="ArchiveJieyue"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableCountByExample="false"
+               enableSelectByExample="false">
+            <property name="enableSubPackages" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <!-- 数据库表主键 -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
+
+
