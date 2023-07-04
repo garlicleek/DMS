@@ -27,7 +27,7 @@ export default {
     }
   },
   beforeCreate() {
-    document.querySelector('body').setAttribute('style', "background: url('http://localhost:8080/file/background.png');background-size:100%")
+    document.querySelector('body').setAttribute('style', "background: url('http://123.249.31.57:82/file/background.png');background-size:100%")
   },
   beforeDestroy() {
     document.querySelector('body').removeAttribute('style')

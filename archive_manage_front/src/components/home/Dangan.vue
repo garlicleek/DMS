@@ -7,7 +7,7 @@
             <el-table-column prop="mingcheng" label="名称" width="100" />
             <el-table-column prop="lujing" label="电子档案" width="150">
                 <template v-slot="scope">
-                    <el-link type="primary" :href="'http://localhost:8080' + scope.row.lujing">查看电子档案</el-link>
+                    <el-link type="primary" :href="'http://123.249.31.57:82' + scope.row.lujing">查看电子档案</el-link>
                 </template>
             </el-table-column>
             <el-table-column prop="lujing" label="电子档案磁盘位置" width="200" />
@@ -34,26 +34,31 @@
             <el-table-column label="操作" width="270">
                 <template v-slot="scope">
                     <el-button type="warning" v-if="scope.row.zhuangtai == 0"
-                        @click="updSp1(scope.row.id, 1)">审批通过</el-button>
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 1; commonStatus = true">审批通过</el-button>
                     <el-button type="warning" v-if="scope.row.zhuangtai == 0"
-                        @click="updSp2(scope.row.id, 2)">审批不通过</el-button>
-                    <el-button type="warning" v-if="scope.row.zhuangtai == 1" @click="updJj(scope.row.id, 3)">交接</el-button>
-                    <el-button type="warning" v-if="scope.row.zhuangtai == 3" @click="updJd(scope.row.id, 4)">鉴定</el-button>
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 2; commonStatus = true">审批不通过</el-button>
+                    <el-button type="warning" v-if="scope.row.zhuangtai == 1"
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 3; commonStatus = true">交接</el-button>
+                    <el-button type="warning" v-if="scope.row.zhuangtai == 3"
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 4; commonStatus = true">鉴定</el-button>
                     <el-button type="warning" v-if="scope.row.zhuangtai == 4"
-                        @click="gdForm.id = scope.row.id; gdStatus = true">归档</el-button>
-                    <el-button type="warning" v-if="scope.row.zhuangtai == 5" @click="updBg(scope.row.id, 6)">保管</el-button>
-                    <el-button type="warning" v-if="scope.row.zhuangtai == 6" @click="updJy(scope.row.id, 7)">申请借阅</el-button>
-                    <el-button type="warning" v-if="scope.row.zhuangtai == 7" @click="updGh(scope.row.id, 6)">归还借阅</el-button>
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 5; commonStatus = true">归档</el-button>
+                    <el-button type="warning" v-if="scope.row.zhuangtai == 5"
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 6; commonStatus = true">保管</el-button>
                     <el-button type="warning" v-if="scope.row.zhuangtai == 6"
-                        @click="updDqjd(scope.row.id, 8)">定期鉴定</el-button>
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 14; commonStatus = true">申请借阅</el-button>
+                    <el-button type="warning" v-if="scope.row.zhuangtai == 7"
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 15; commonStatus = true">归还借阅</el-button>
+                    <el-button type="warning" v-if="scope.row.zhuangtai == 6"
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 8; commonStatus = true">定期鉴定</el-button>
                     <el-button type="warning" v-if="scope.row.zhuangtai == 8"
-                        @click="updXh1(scope.row.id, 9)">通过销毁申请</el-button>
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 9; commonStatus = true">通过销毁申请</el-button>
                     <el-button type="warning" v-if="scope.row.zhuangtai == 8"
-                        @click="updXh2(scope.row.id, 10)">拒绝销毁申请</el-button>
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 10; commonStatus = true">拒绝销毁申请</el-button>
                     <el-button type="warning" v-if="scope.row.zhuangtai == 9"
-                        @click="updXh(scope.row.id, 11)">销毁</el-button>
-                    <el-button type="warning" v-if="scope.row.zhuangtai == 11" @click="update(scope.row.id)">修改</el-button>
-                    <el-button type="danger" v-if="scope.row.zhuangtai == 11" @click="delet(scope.row.id)">删除</el-button>
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 11; commonStatus = true">销毁</el-button>
+                    <el-button type="danger" v-if="scope.row.zhuangtai == 11"
+                        @click="commonForm.archive_id = scope.row.id; commonForm.caozuo_id = 12; commonStatus = true">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -70,7 +75,7 @@
                 <el-input v-model="form.mingcheng" />
             </el-form-item>
             <el-form-item label="路径" required prop="lujing">
-                <el-upload action="http://localhost:8080/upload/file" :headers="headers" :on-success="handleAvatarSuccess"
+                <el-upload action="http://123.249.31.57:82/upload/file" :headers="headers" :on-success="handleAvatarSuccess"
                     :on-remove="handleAvatarRemove" :limit="1">
                     <el-button type="primary">上传档案</el-button>
                 </el-upload>
@@ -100,13 +105,34 @@
         </el-form>
     </el-dialog>
     <el-dialog :model-value="gdStatus" @close="gdStatus = false">
-        <el-form :model="gdForm" label-width="120px" ref="formRef">
+        <el-form :model="gdForm" label-width="120px" ref="gdFormRef">
             <el-form-item label="档案架" required prop="danganjia">
                 <el-input v-model="gdForm.danganjia" />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="updGd">提交</el-button>
-                <el-button @click="reset">重置</el-button>
+                <el-button type="primary" @click="updGd1">提交</el-button>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
+    <el-dialog :model-value="commonStatus" @close="commonStatus = false">
+        <el-form :model="commonForm" label-width="120px" ref="commonFormRef">
+            <el-form-item label="备注" required prop="beizhu">
+                <el-input v-model="commonForm.beizhu" />
+            </el-form-item>
+            <el-form-item>
+                <el-button v-if="commonForm.caozuo_id == 1" type="primary" @click="updSp1">审批通过</el-button>
+                <el-button v-if="commonForm.caozuo_id == 2" type="primary" @click="updSp2">审批不通过</el-button>
+                <el-button v-if="commonForm.caozuo_id == 3" type="primary" @click="updJj">交接</el-button>
+                <el-button v-if="commonForm.caozuo_id == 4" type="primary" @click="updJd">鉴定</el-button>
+                <el-button v-if="commonForm.caozuo_id == 5" type="primary" @click="updGd">归档</el-button>
+                <el-button v-if="commonForm.caozuo_id == 6" type="primary" @click="updBg">保管</el-button>
+                <el-button v-if="commonForm.caozuo_id == 14" type="primary" @click="updJy">申请借阅</el-button>
+                <el-button v-if="commonForm.caozuo_id == 15" type="primary" @click="updGh">归还借阅</el-button>
+                <el-button v-if="commonForm.caozuo_id == 8" type="primary" @click="updDqjd">定期鉴定</el-button>
+                <el-button v-if="commonForm.caozuo_id == 9" type="primary" @click="updXh1">通过销毁申请</el-button>
+                <el-button v-if="commonForm.caozuo_id == 10" type="primary" @click="updXh2">拒绝销毁申请</el-button>
+                <el-button v-if="commonForm.caozuo_id == 11" type="primary" @click="updXh">销毁</el-button>
+                <el-button v-if="commonForm.caozuo_id == 12" type="primary" @click="delet">删除</el-button>
             </el-form-item>
         </el-form>
     </el-dialog>
@@ -135,6 +161,12 @@ export default {
                     mingcheng: "立卷"
                 }
             ],
+            commonForm: {
+                id: 0,
+                archive_id: 0,
+                caozuo_id: 0,
+                beizhu: ""
+            },
             gdForm: {
                 id: 0,
                 danganjia: ""
@@ -151,6 +183,7 @@ export default {
             },
             status: false,
             gdStatus: false,
+            commonStatus: false,
             currentPage: 1,
             pageSize: 10,
             total: 0
@@ -165,14 +198,11 @@ export default {
         this.selLaiyuanList();
     },
     methods: {
-        updSp1(id, state) {
+        updSp1() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updSp1',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -180,18 +210,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updSp2(id, state) {
+        updSp2() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updSp2',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -199,18 +226,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updJj(id, state) {
+        updJj() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updJj',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -218,18 +242,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updJd(id, state) {
+        updJd() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updJd',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -237,7 +258,7 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
@@ -245,10 +266,28 @@ export default {
             this.$http({
                 method: 'put',
                 url: '/dangan/updGd',
+                data: this.commonForm
+            }).then(res => {
+                if (res.state == 1) {
+                    ElMessage({
+                        message: '操作记录成功',
+                        type: 'success',
+                    })
+                    this.selList();
+                    this.commonStatus = false;
+                    this.gdForm.id = this.commonForm.archive_id;
+                    this.gdStatus = true;
+                }
+            });
+        },
+        updGd1() {
+            this.$http({
+                method: 'put',
+                url: '/dangan/updGd1',
                 data: {
                     id: this.gdForm.id,
                     zhuangtai: 5,
-                    danganjia:this.gdForm.danganjia
+                    danganjia: this.gdForm.danganjia
                 }
             }).then(res => {
                 if (res.state == 1) {
@@ -261,14 +300,11 @@ export default {
                 }
             });
         },
-        updBg(id, state) {
+        updBg() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updBg',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -276,18 +312,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updJy(id, state) {
+        updJy() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updJy',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -295,18 +328,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updGh(id, state) {
+        updGh() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updGh',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -314,18 +344,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updDqjd(id, state) {
+        updDqjd() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updDqjd',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -333,18 +360,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updXh1(id, state) {
+        updXh1() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updXh1',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -352,18 +376,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updXh2(id, state) {
+        updXh2() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updXh2',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -371,18 +392,15 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
-        updXh(id, state) {
+        updXh() {
             this.$http({
                 method: 'put',
                 url: '/dangan/updXh',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -390,26 +408,7 @@ export default {
                         type: 'success',
                     })
                     this.selList();
-                    this.status = false;
-                }
-            });
-        },
-        updZt(id, state) {
-            this.$http({
-                method: 'put',
-                url: '/dangan/updZhuangtai',
-                data: {
-                    id: id,
-                    zhuangtai: state
-                }
-            }).then(res => {
-                if (res.state == 1) {
-                    ElMessage({
-                        message: '修改成功',
-                        type: 'success',
-                    })
-                    this.selList();
-                    this.status = false;
+                    this.commonStatus = false;
                 }
             });
         },
@@ -502,9 +501,7 @@ export default {
             this.$http({
                 url: "/dangan/delDangan",
                 method: "delete",
-                params: {
-                    id: data
-                }
+                data: this.commonForm
             }).then(res => {
                 if (res.state == 1) {
                     ElMessage({
@@ -512,6 +509,7 @@ export default {
                         type: 'success'
                     })
                     this.selList();
+                    this.commonStatus = false;
                 }
             });
         },

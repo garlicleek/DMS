@@ -9,9 +9,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\";
-        //String path = "/home/java/";
-        registry.addResourceHandler("/static/**").addResourceLocations("file:" + path);
+        //String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\";
+        String path = "/home/java/static/";
+        registry.addResourceHandler("/**").addResourceLocations("file:" + path);
     }
 
 }

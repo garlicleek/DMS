@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihuo.common.dao.ArchiveHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.lihuo.common.po.ArchiveHistory">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="archive_id" jdbcType="INTEGER" property="archive_id" />
+    <result column="caozuo_id" jdbcType="INTEGER" property="caozuo_id" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="beizhu" jdbcType="VARCHAR" property="beizhu" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, archive_id, caozuo_id, time, beizhu, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from archive_history
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from archive_history
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lihuo.common.po.ArchiveHistory">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into archive_history (archive_id, caozuo_id, time, 
+      beizhu, user_id)
+    values (#{archive_id,jdbcType=INTEGER}, #{caozuo_id,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{beizhu,jdbcType=VARCHAR}, #{user_id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lihuo.common.po.ArchiveHistory">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into archive_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="archive_id != null">
+        archive_id,
+      </if>
+      <if test="caozuo_id != null">
+        caozuo_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="beizhu != null">
+        beizhu,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="archive_id != null">
+        #{archive_id,jdbcType=INTEGER},
+      </if>
+      <if test="caozuo_id != null">
+        #{caozuo_id,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beizhu != null">
+        #{beizhu,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lihuo.common.po.ArchiveHistory">
+    update archive_history
+    <set>
+      <if test="archive_id != null">
+        archive_id = #{archive_id,jdbcType=INTEGER},
+      </if>
+      <if test="caozuo_id != null">
+        caozuo_id = #{caozuo_id,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beizhu != null">
+        beizhu = #{beizhu,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lihuo.common.po.ArchiveHistory">
+    update archive_history
+    set archive_id = #{archive_id,jdbcType=INTEGER},
+      caozuo_id = #{caozuo_id,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      beizhu = #{beizhu,jdbcType=VARCHAR},
+      user_id = #{user_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -43,8 +43,8 @@
         </javaClientGenerator>
 
         <!-- tableName：数据库中的表名或视图名；domainObjectName：生成的实体类的类名-->
-        <table tableName="archive_jieyue"
-               domainObjectName="ArchiveJieyue"
+        <table tableName="archive_history"
+               domainObjectName="ArchiveHistory"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableCountByExample="false"

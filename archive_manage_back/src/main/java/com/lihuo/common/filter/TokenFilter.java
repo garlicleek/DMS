@@ -48,7 +48,7 @@ public class TokenFilter implements Filter {
         if (!httpServletRequest.getMethod().equals("OPTIONS")) {
             String authHeader = httpServletRequest.getHeader(AUTH_HEADER);
             String uri = httpServletRequest.getRequestURI();
-            if (uri.contains("login") || uri.contains("file")) {
+            if (uri.contains("login") || uri.contains("file") || uri.contains("svg") || uri.contains("html") || uri.contains("js") || uri.contains("css")) {
                 chain.doFilter(request, response);
                 return;
             }
@@ -138,7 +138,7 @@ public class TokenFilter implements Filter {
                     }
                     return;
                 } else {
-                    if (uri.contains("/dangan/selDanganPage")||uri.contains("/dangan/updJy")) {
+                    if (uri.contains("/dangan/selDanganPage") || uri.contains("/dangan/updJy") || uri.contains("/dangan/insDangan") || uri.contains("/dalx/selDalxPage") || uri.contains("/daly/selDalyPage")) {
                         chain.doFilter(request, response);
                         return;
                     } else {

@@ -92,6 +92,17 @@
                             <el-menu-item index="8-1" @click="open('bmqx')">查看岗位权限列表</el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>
+                    <el-sub-menu index="9">
+                        <template #title>
+                            <el-icon>
+                                <Edit />
+                            </el-icon>
+                            <span>档案操作历史</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="9-1" @click="open('dals')">查看档案操作历史</el-menu-item>
+                        </el-menu-item-group>
+                    </el-sub-menu>
                 </el-menu>
             </el-aside>
             <el-container>
@@ -111,6 +122,7 @@
                     <daly v-if="menu == 'daly'"></daly>
                     <qx v-if="menu == 'qx'"></qx>
                     <bmqx v-if="menu == 'bmqx'"></bmqx>
+                    <dals v-if="menu == 'dals'"></dals>
                 </el-main>
             </el-container>
         </el-container>
@@ -131,6 +143,7 @@ import dalx from './home/Dalx.vue'
 import daly from './home/Daly.vue'
 import qx from './home/Quanxian.vue'
 import bmqx from './home/Bmqx.vue'
+import dals from './home/Dals.vue'
 
 export default {
     data() {
@@ -149,6 +162,7 @@ export default {
         daly,
         qx,
         bmqx,
+        dals,
         HomeFilled,
         Edit
     },
@@ -192,6 +206,10 @@ export default {
             if (data == 'bmqx') {
                 this.fm = "岗位权限管理";
                 this.sm = "岗位权限列表";
+            }
+            if (data == 'dals') {
+                this.fm = "档案操作历史管理";
+                this.sm = "档案操作历史列表";
             }
         }
     }

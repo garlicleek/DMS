@@ -18,7 +18,7 @@ app.use(ElementPlus, {
 app.use(router);
 app.mount("#app");
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "http://123.249.31.57:82";
 axios.defaults.timeout = 5000;
 // axios.defaults.headers.common["Content-Type"] =
 //   "application/x-www-form-urlencoded";

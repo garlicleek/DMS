@@ -18,8 +18,8 @@ public class UploadController {
     @RequestMapping("/file")
     public Res uploadFile(MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
         String filename = System.currentTimeMillis() + "." + file.getOriginalFilename().split("\\.")[1];
-        String dirPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\";
-        //String dirPath = "/home/java/static/file/";
+        //String dirPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\file\\";
+        String dirPath = "/home/java/static/file/";
         String realPath = dirPath + filename;
         String url = "/file/" + filename;
         File dirFile = new File(dirPath);
