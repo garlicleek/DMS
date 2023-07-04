@@ -1,5 +1,5 @@
 <template>
-    <el-button type="primary" @click="add" style="position: fixed;left:230px;top:110px">立卷</el-button>
+    <el-button type="primary" @click="add" style="position: fixed;left:230px;top:110px">提交档案</el-button>
     <div style="position: fixed;top:150px;left:230px;">
         <el-table :data="tableData" style="width: 100%">
             <el-table-column prop="id" label="ID" width="60" />
